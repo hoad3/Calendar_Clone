@@ -1,10 +1,19 @@
 //eslint-disable-next-line react/prop-types
 import {enqueueSnackbar} from "notistack";
+import {useState} from "react";
 
 //eslint-disable-next-line react/prop-types
 const Modal = ({ isOpen, onClose, onSave, newEvent, setNewEvent }) => {
     if (!isOpen) return null; // Không hiển thị modal nếu `isOpen` là false
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [startTime, setStartTime] = useState(
+        //eslint-disable-next-line react/prop-types
+        newEvent.start.toTimeString().substring(0, 5));
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [endTime, setEndTime] = useState(
+        //eslint-disable-next-line react/prop-types
+        newEvent.end.toTimeString().substring(0, 5));
     const handleTimeChange = (time, type) => {
         const [hours, minutes] = time.split(':'); // Tách giờ và phút
         const updatedEvent = { ...newEvent };
@@ -34,18 +43,25 @@ const Modal = ({ isOpen, onClose, onSave, newEvent, setNewEvent }) => {
                 updatedEvent.end = newEnd; // Cập nhật thời gian kết thúc
             }
 
-            else if(newEnd == updatedEvent.end)
-            {
-                newEnd.setHours(updatedEvent.start.getDate() + 1);
-            }
+            updatedEvent.end = newEnd;
 
         }
 
         setNewEvent(updatedEvent); // Cập nhật trạng thái sự kiện
     };
 
+    const handleStartTimeChange = (e) => {
+        setStartTime(e.target.value);
+        handleTimeChange(e.target.value, 'start');
+    };
+
+    const handleEndTimeChange = (e) => {
+        setEndTime(e.target.value);
+        handleTimeChange(e.target.value, 'end');
+    };
+
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
                 <h2 className="text-lg font-bold mb-4">Thêm sự kiện mới</h2>
 
@@ -63,10 +79,10 @@ const Modal = ({ isOpen, onClose, onSave, newEvent, setNewEvent }) => {
                 <label className="block mb-2">Thời gian bắt đầu:</label>
                 <input
                     type="time"
-                    className="w-full p-2 border border-gray-300 rounded mb-4"
+                    className="w-full p-2 border border-gray-300 rounded mb-4 "
                     //eslint-disable-next-line react/prop-types
-                    value={newEvent.start.toTimeString().substring(0, 5)}
-                    onChange={(e) => handleTimeChange(e.target.value, 'start')}
+                    value={startTime}
+                    onChange={handleStartTimeChange}
                 />
 
                 {/* Trường nhập thời gian kết thúc */}
@@ -75,8 +91,8 @@ const Modal = ({ isOpen, onClose, onSave, newEvent, setNewEvent }) => {
                     type="time"
                     className="w-full p-2 border border-gray-300 rounded mb-4"
                     //eslint-disable-next-line react/prop-types
-                    value={newEvent.end.toTimeString().substring(0, 5)}
-                    onChange={(e) => handleTimeChange(e.target.value, 'end')}
+                    value={endTime}
+                    onChange={handleEndTimeChange}
                 />
 
                 <div className="flex justify-end mt-4">

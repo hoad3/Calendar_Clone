@@ -2,71 +2,242 @@
 @tailwind components;
 @tailwind utilities;
 
-/*:root {*/
-/*  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;*/
-/*  line-height: 1.5;*/
-/*  font-weight: 400;*/
+.rbc-toolbar {
+    @apply flex justify-between p-2 bg-blue-200 text-white rounded-t-lg;
+}
+.rbc-btn-group
+{
+    @apply inline-block
+}
+.rbc-btn-group > button:first-child:not(:last-child)
+{
 
-/*  color-scheme: light dark;*/
-/*  color: rgba(255, 255, 255, 0.87);*/
-/*  background-color: #242424;*/
+}
+.rbc-calendar
+{
+    @apply shadow-2xl
+}
 
-/*  font-synthesis: none;*/
-/*  text-rendering: optimizeLegibility;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*}*/
+.rbc-events-container
+{
+    @apply h-full
+}
+.rbc-time-view .rbc-row
+{
+    @apply min-h-10
+}
+.rbc-time-view .rbc-time-gutter{
+    @apply mt-20 !important;
+}
+.rbc-today
+{
+    @apply bg-blue-100
+}
+.rbc-time-content {
+    @apply overflow-y-auto h-full; /* Áp dụng cuộn dọc */
+    max-height: 400px; /* Giới hạn chiều cao, bạn có thể điều chỉnh theo nhu cầu */
+}
+.rbc-row-content
+{
+    @apply h-0
+}
 
-/*a {*/
-/*  font-weight: 500;*/
-/*  color: #646cff;*/
-/*  text-decoration: inherit;*/
-/*}*/
-/*a:hover {*/
-/*  color: #535bf2;*/
-/*}*/
+.rbc-row
+{
+    @apply h-auto
+}
 
-/*body {*/
-/*  margin: 0;*/
-/*  display: flex;*/
-/*  place-items: center;*/
-/*  min-width: 320px;*/
-/*  min-height: 100vh;*/
-/*}*/
+.calendar-month .rbc-date-cell
+{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    padding-right: 0px;
+}
 
-/*h1 {*/
-/*  font-size: 3.2em;*/
-/*  line-height: 1.1;*/
-/*}*/
+.calendar-month.has-event .rbc-row-segment {
+    display: none; /* Ẩn phần tử rbc-row-segment trong chế độ xem tháng */
+}
+.rbc-toolbar-label{
+    @apply text-4xl font-bold text-blue-900
+}
 
-/*button {*/
-/*  border-radius: 8px;*/
-/*  border: 1px solid transparent;*/
-/*  padding: 0.6em 1.2em;*/
-/*  font-size: 1em;*/
-/*  font-weight: 500;*/
-/*  font-family: inherit;*/
-/*  background-color: #1a1a1a;*/
-/*  cursor: pointer;*/
-/*  transition: border-color 0.25s;*/
-/*}*/
-/*button:hover {*/
-/*  border-color: #646cff;*/
-/*}*/
-/*button:focus,*/
-/*button:focus-visible {*/
-/*  outline: 4px auto -webkit-focus-ring-color;*/
-/*}*/
+.rbc-day-slot .rbc-time-slot {
+    @apply border-0 !important; /* Ghi đè border-top bằng Tailwind và đảm bảo độ ưu tiên cao hơn */
+}
+.rbc-time-column
+{
+    @apply hover:border-2 hover:border-cyan-400 duration-500;
+}
+.rbc-timeslot-group
+{
+    @apply hover:border-2 hover:border-cyan-400 duration-300;
+}
+.rbc-time-content > * + * > * {
+    @apply border-t-0 border-b-0/* Ghi đè border-left */
+}
 
-/*@media (prefers-color-scheme: light) {*/
-/*  :root {*/
-/*    color: #213547;*/
-/*    background-color: #ffffff;*/
-/*  }*/
-/*  a:hover {*/
-/*    color: #747bff;*/
-/*  }*/
-/*  button {*/
-/*    background-color: #f9f9f9;*/
-/*  }*/
-/*}*/
+.rbc-day-slot .rbc-event, .rbc-day-slot .rbc-background-event
+{
+    @apply min-h-16 bg-amber-400
+}
+
+.rbc-header
+{
+    @apply text-2xl font-medium h-10
+}
+.rbc-header .rbc-today
+{
+    @apply text-2xl font-medium h-14
+}
+.rbc-day-bg
+{
+    @apply  border-t-amber-400  !important;
+}
+
+body.dark-mode .rbc-time-content
+{
+    @apply border-t-gray-600
+}
+
+body.dark-mode .rbc-header + .rbc-header
+{
+    @apply border-b-gray-600
+}
+
+body.dark-mode .rbc-header
+{
+    @apply border-b-gray-600
+}
+body.dark-mode .dark-mode-1 {
+    @apply bg-gray-900 !important; /* Màu nền chế độ tối */
+    color: #3b82f6; /* Màu chữ chế độ tối */
+}
+body.dark-mode .dark-mode-2
+{
+
+}
+body.dark-mode .dark-mode-3
+{
+    @apply bg-gradient-to-r from-indigo-600 to-pink-500 drop-shadow-2xl;
+}
+body.dark-mode .dark-mode-4
+{
+    @apply bg-gray-900 drop-shadow-2xl
+}
+body.dark-mode .dark-mode-5
+{
+    @apply bg-gray-800 drop-shadow-2xl
+}
+body.dark-mode .dark-mode-6
+{
+    @apply bg-gray-800 drop-shadow-2xl
+}
+body.dark-mode .dark-mode-7
+{
+    @apply bg-gray-800 drop-shadow-2xl;
+    color: #3b82f6; /* Màu chữ chế độ tối */
+
+}
+body.dark-mode .dark-mode-8
+{
+    @apply bg-gray-800 drop-shadow-2xl
+}
+body.dark-mode .dark-mode-9
+{
+    @apply bg-gray-800 drop-shadow-2xl
+}
+body.dark-mode .dark-mode-10
+{
+    @apply bg-gray-800 drop-shadow-2xl
+}
+body {
+    background-color: #d1d5db; /* Màu nền chế độ sáng */
+    color: black; /* Màu chữ chế độ sáng */
+}
+
+/* Quy tắc cho chế độ tối */
+body.dark-mode .rbc-day-slot .rbc-event,
+body.dark-mode .rbc-day-slot .rbc-background-event {
+    @apply min-h-16 bg-gray-700; /* Thay đổi màu nền cho chế độ tối */
+}
+body.dark-mode .rbc-day-bg + .rbc-day-bg
+{
+    @apply border-l-blue-900
+}
+body.dark-mode .rbc-month-row + .rbc-month-row
+{
+    @apply border-l-blue-900 !important;
+}
+
+body.dark-mode .rbc-today
+{
+    @apply bg-gray-600;
+}
+
+body.dark-mode .rbc-off-range-bg
+{
+    @apply bg-gray-600;
+}
+
+body.dark-mode .dark-mode-day
+{
+    @apply font-bold bg-gradient-to-r from-red-600 to-amber-500 bg-clip-text text-transparent ml-10 mr-10;
+}
+body.dark-mode .dark-mode-month
+{
+    @apply font-bold bg-gradient-to-r from-rose-500 to-violet-800 bg-clip-text text-transparent ml-10 mr-10;
+}
+body.dark-mode .dark-mode-week
+{
+    @apply font-bold bg-gradient-to-r from-orange-600 to-blue-700 bg-clip-text text-transparent ml-10 mr-10;
+}
+
+/* Tạo hiệu ứng cho văn bản */
+body.dark-mode .clk {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+
+}
+
+body.dark-mode .clk::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+body.dark-mode .clk::before {
+    content: "";
+    background: linear-gradient(
+            45deg,
+            #FF0000, #FF7300, #FFFB00, #48FF00,
+            #00FFD5, #002bFF, #FF00C8, #FF0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600%;
+    z-index: -2; /* Giữ background gradient phía dưới nhưng trên ::after */
+    width: calc(100% + 4px);
+    height: calc(100% + 4px); /* Sửa lỗi cú pháp */
+    filter: blur(8px);
+    transition: opacity .100s ease-in-out;
+    border-radius: 10px;
+    opacity: 1;
+    animation: glowing 60s infinite; /* Thêm animation để hiệu ứng chuyển động */
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
