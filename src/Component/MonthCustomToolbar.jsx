@@ -4,7 +4,7 @@ import { FaChevronLeft, FaChevronRight, FaCalendarAlt } from 'react-icons/fa'; /
 
 const MonthCustomToolbar = (props) => {
     // eslint-disable-next-line react/prop-types
-    const { label, onNavigate, today } = props;
+    const { label, onNavigate } = props;
 
     return (
         <div className="toolbar flex justify-center items-center bg-blue-200 h-14 dark-mode-10">

@@ -26,7 +26,7 @@ function MyCalendar() {
     const [newEvent, setNewEvent] = useState({ title: '', end: new Date(new Date().getTime() + 60 * 60 * 1000),}); // Thời gian kết thúc mặc định 1 giờ sau
     const [view, setView] = useState('week');
     // const currentMonth = moment().format('YYYY-MM'); // Tháng hiện tại
-    const [ setHasEvent] = useState(false); // Thêm trạng thái để theo dõi sự kiện
+    // const [ setHasEvent] = useState(false); // Thêm trạng thái để theo dõi sự kiện
     const [eventDays, setEventDays] = useState([]); // Mảng lưu trữ các ngày có sự kiện
     const [ setSelectedEvent] = useState(null); // Trạng thái để lưu sự kiện đã chọn
     const [selectedDate] = useState(new Date()); // Ngày đã
