@@ -13,6 +13,8 @@ import WeekCustomToolbar from "../Component/WeekCustomToolbar.jsx";
 import DayCustomToolbar from "../Component/DayCustomtoolbar.jsx";
 import TimeDisplay from "../Component/TimeDisplay.jsx";
 import AOS from'aos'
+import {BsFillMoonStarsFill} from "react-icons/bs";
+import {IoSunny} from "react-icons/io5";
 // eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line react/prop-types
 // Localizer cho phép lịch đồng bộ với định dạng ngày/giờ
@@ -30,9 +32,11 @@ function MyCalendar() {
     const [eventDays, setEventDays] = useState([]); // Mảng lưu trữ các ngày có sự kiện
     const [ setSelectedEvent] = useState(null); // Trạng thái để lưu sự kiện đã chọn
     const [selectedDate] = useState(new Date()); // Ngày đã
+    const [isToggled, setIsToggled] = useState(false);
     const myFunction = () => {
         const body = document.body;
         body.classList.toggle('dark-mode');
+        setIsToggled(prevState => !prevState);
     };
 
     useEffect(() => {
@@ -119,29 +123,60 @@ function MyCalendar() {
         setView('day');
         selectedDate((slotInfo.start))
     };
+    // <div className='flex flex-row w-full justify-center'>
+    //     <h2 className='z-40 text-6xl font-bold w-full flex justify-end items-center ml-20'>Welcome</h2>
+    //     <div className="flex items-center justify-end w-full ">
+    //         <label htmlFor="toggle" className="flex items-center cursor-pointer mr-10">
+    //             <div className="relative">
+    //                 <input
+    //                     type="checkbox"
+    //                     id="toggle"
+    //                     className="hidden"
+    //                     onChange={myFunction} // Gọi myFunction khi thay đổi
+    //                 />
+    //                 <div className="block bg-gray-400 w-14 h-8 rounded-full"></div>
+    //                 <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${isToggled ? 'translate-x-full' : ''}`}></div>
+    //             </div>
+    //             <div className="ml-3 text-gray-700 font-medium flex items-center">
+    //                 {isToggled ? <BsFillMoonStarsFill className="text-xl text-gray-500" /> : <IoSunny className="text-xl" />}
+    //             </div>
+    //         </label>
+    //     </div>
+    // </div>
 
     return (
-        <div  className='flex flex-col justify-center items-center bg-gray-200 min-h-screen overflow-hidden relative dark-mode-1 '>
-            <div className='h-24 w-full flex flex-col justify-center items-center border-b-2 border-gray-400 z-50 fixed top-0 left-0 bg-gray-200 dark-mode-1' >
-                <div className='flex flex-row justify-center'> <h2 className='z-40 text-6xl font-bold'>Welcome</h2>
-                    <button
-                        id="toggle-theme"
-                        className="absolute top-4 right-4 p-2 bg-blue-500 text-white rounded dark-mode-2"
-                        onClick={myFunction}>
-                        Chuyển sang chế độ tối
-                    </button>
+        <div className='flex flex-col justify-center items-center bg-gray-200 min-h-screen overflow-hidden relative dark-mode-1'>
+            <div className='h-24 w-full flex flex-col justify-center items-center border-b-2 border-gray-400 z-50 fixed top-0 left-0 bg-gray-200 dark-mode-1'>
+                <div className='flex flex-row w-full justify-between px-5 sm:justify-center'>
+                    <h2 className='z-40 text-6xl font-bold w-full flex justify-end items-center ml-20'>Welcome</h2>
+                    <div className="flex items-center justify-end w-full">
+                        <label htmlFor="toggle" className="flex items-center cursor-pointer">
+                            <div className="relative">
+                                <input
+                                    type="checkbox"
+                                    id="toggle"
+                                    className="hidden"
+                                    onChange={myFunction} // Gọi myFunction khi thay đổi
+                                />
+                                <div className="block bg-gray-400 w-14 h-8 rounded-full"></div>
+                                <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${isToggled ? 'translate-x-full' : ''}`}></div>
+                            </div>
+                            <div className="ml-3 text-gray-700 font-medium flex items-center">
+                                {isToggled ? <BsFillMoonStarsFill className="text-xl text-gray-500" /> : <IoSunny className="text-xl" />}
+                            </div>
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div className='flex flex-row justify-center items-start w-full min-h-screen'>
-                <div className='w-3/4 h-full top-56 bg-gray-200 rounded-bl-full shadow-2xl z-0 absolute dark-mode-3'>
+            <div className='flex flex-col md:flex-row justify-center items-start w-full min-h-screen'>
+                <div className='w-full md:w-3/4 h-full top-56 bg-gray-200 rounded-bl-full shadow-2xl z-0 absolute dark-mode-3'></div>
 
-                </div>
                 {/* Lịch tháng thứ nhất */}
-                <div className='w-2/4 flex flex-col justify-center m-8 bg-gray-100 z-40 top-28 relative rounded-2xl dark-mode-4' data-aos="slide-right">
+                <div className='reponsive-month dark-mode-4' data-aos="slide-right">
                     <div>
-                        <TimeDisplay/>
+                        <TimeDisplay />
                     </div>
-                    <div className={`w-full mt-10 calendar-month`} >
+                    <div className={`w-full mt-10 calendar-month`}>
                         <Calendar
                             localizer={localizer}
                             events={events}
@@ -151,7 +186,6 @@ function MyCalendar() {
                             defaultView="month"
                             views={['month']}
                             selectable={true}
-                            // toolbar={true}
                             onSelectEvent={handleSelectEvent}
                             onSelectSlot={handleSelectDay}
                             dayPropGetter={(date) => {
@@ -167,16 +201,14 @@ function MyCalendar() {
                                     border: 'none'
                                 },
                             })}
-                            components = {{
+                            components={{
                                 toolbar: MonthCustomToolbar,
                             }}
                         />
-                        {/* Hiển thị thông tin sự kiện */}
-
                     </div>
                 </div>
 
-                <div className='w-3/4 h-2/3 m-8 z-40 relative top-28'>
+                <div className='reponsive-week'>
                     <div className='w-full bg-gray-100 dark-mode-5'>
                         <Calendar
                             localizer={localizer}
@@ -186,7 +218,7 @@ function MyCalendar() {
                             style={{ height: 500 }}
                             defaultView="week"
                             views={['week']}
-                            selectable = {true}
+                            selectable={true}
                             onView={(newView) => setView(newView)} // Cập nhật trạng thái khi người dùng thay đổi chế độ xem
                             onSelectEvent={(event) => alert(event.title)}
                             onSelectSlot={handleSelectSlot}
@@ -197,7 +229,7 @@ function MyCalendar() {
                                     border: 'none'
                                 },
                             })}
-                            components ={{
+                            components={{
                                 toolbar: WeekCustomToolbar,
                             }}
                         />
@@ -210,8 +242,8 @@ function MyCalendar() {
                             endAccessor="end"
                             style={{ height: 500 }}
                             defaultView="day"
-                            views={[ 'day']}
-                            selectable = {true}
+                            views={['day']}
+                            selectable={true}
                             onView={(newView) => setView(newView)} // Cập nhật trạng thái khi người dùng thay đổi chế độ xem
                             onSelectEvent={(event) => alert(event.title)}
                             onSelectSlot={handleSelectSlot}
@@ -222,17 +254,13 @@ function MyCalendar() {
                                     border: 'none'
                                 },
                             })}
-                            components ={{
-                                toolbar:DayCustomToolbar,
+                            components={{
+                                toolbar: DayCustomToolbar,
                             }}
                         />
                     </div>
                 </div>
-
             </div>
-
-
-
 
             {/* Modal thêm sự kiện */}
             <Modal

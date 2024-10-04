@@ -38,7 +38,7 @@ const TimeDisplay = () => {
 
     return (
         <div className="flex flex-col items-center bg-blue-200 p-4 rounded-lg shadow-lg dark-mode-7">
-            <div className='w-1/3 h-auto flex flex-col justify-center items-center bg-gradient-to-r from-gray-400 to-gray-300 rounded-2xl border-2 border-blue-400 shadow-2xl clk'>
+            <div className='reponsive-time clk'>
 
                 <h2 className="text-2xl font-bold mb-2 text-center">{greeting}</h2>
                 <p className="text-xl text-center">{currentTime}</p>
