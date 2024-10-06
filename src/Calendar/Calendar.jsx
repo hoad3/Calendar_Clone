@@ -85,7 +85,7 @@ function MyCalendar() {
     };
     const handleSelectEvent = (event) => {
         setSelectedEvent(event); // Lưu sự kiện đã chọn để hiển thị thông tin
-        console.log("adasdas",setSelectedEvent(event))
+
     };
 
     const handleClose = () => {
@@ -104,7 +104,7 @@ function MyCalendar() {
 
         // Nếu tiêu đề không trống, thêm sự kiện vào store
         if (title) {
-            const color = getRandomColor(0.9); // Đặt độ trong suốt là 0.3
+            const color = getRandomColor(0.9);
             dispatch(addEvent({ ...newEvent, start: new Date(start), end: new Date(end), color }));
             // setHasEvent(true);
             // Lưu ngày có sự kiện vào mảng
@@ -123,32 +123,11 @@ function MyCalendar() {
         setView('day');
         selectedDate((slotInfo.start))
     };
-    // <div className='flex flex-row w-full justify-center'>
-    //     <h2 className='z-40 text-6xl font-bold w-full flex justify-end items-center ml-20'>Welcome</h2>
-    //     <div className="flex items-center justify-end w-full ">
-    //         <label htmlFor="toggle" className="flex items-center cursor-pointer mr-10">
-    //             <div className="relative">
-    //                 <input
-    //                     type="checkbox"
-    //                     id="toggle"
-    //                     className="hidden"
-    //                     onChange={myFunction} // Gọi myFunction khi thay đổi
-    //                 />
-    //                 <div className="block bg-gray-400 w-14 h-8 rounded-full"></div>
-    //                 <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${isToggled ? 'translate-x-full' : ''}`}></div>
-    //             </div>
-    //             <div className="ml-3 text-gray-700 font-medium flex items-center">
-    //                 {isToggled ? <BsFillMoonStarsFill className="text-xl text-gray-500" /> : <IoSunny className="text-xl" />}
-    //             </div>
-    //         </label>
-    //     </div>
-    // </div>
-
     return (
         <div className='flex flex-col justify-center items-center bg-gray-200 min-h-screen overflow-hidden relative dark-mode-1'>
             <div className='h-24 w-full flex flex-col justify-center items-center border-b-2 border-gray-400 z-50 fixed top-0 left-0 bg-gray-200 dark-mode-1'>
                 <div className='flex flex-row w-full justify-between px-5 sm:justify-center'>
-                    <h2 className='z-40 text-6xl font-bold w-full flex justify-end items-center ml-20'>Welcome</h2>
+                    <h2 className='z-40 text-6xl font-bold w-full flex justify-end items-center ml-48'>Welcome</h2>
                     <div className="flex items-center justify-end w-full">
                         <label htmlFor="toggle" className="flex items-center cursor-pointer">
                             <div className="relative">

@@ -27,8 +27,17 @@
     @apply min-h-10
 }
 .rbc-time-view .rbc-time-gutter{
-    @apply mt-20 !important;
+    @apply mt-3 !important;
 }
+body.dark-mode .rbc-time-view
+{
+    @apply border-gray-800 !important;
+}
+body.dark-mode .rbc-month-view
+{
+    @apply border-gray-800 !important;
+}
+
 .rbc-today
 {
     @apply bg-blue-100
@@ -185,7 +194,7 @@ body.dark-mode .rbc-month-row + .rbc-month-row
 
 body.dark-mode .rbc-today
 {
-    @apply bg-gray-600;
+    @apply bg-cyan-900;
 }
 
 body.dark-mode .rbc-off-range-bg
@@ -327,13 +336,13 @@ body.dark-mode .clk::before {
 }
 .reponsive-time
 {
-    @apply w-1/3 h-auto flex flex-col justify-center items-center bg-gradient-to-r from-gray-400 to-gray-300 rounded-2xl border-2 border-blue-400 shadow-2xl
+    @apply w-1/3 h-auto flex flex-col justify-center items-center bg-blue-200 rounded-2xl border-2 border-blue-200 drop-shadow-2xl
 }
 
 @media (max-width: 640px) {
     .reponsive-time
     {
-        @apply w-2/3 h-auto flex flex-col justify-center items-center bg-gradient-to-r from-gray-400 to-gray-300 rounded-2xl border-2 border-blue-400 shadow-2xl
+        @apply w-2/3 h-auto flex flex-col justify-center items-center bg-blue-200 rounded-2xl border-2 border-blue-200 drop-shadow-2xl
     }
 
 }
