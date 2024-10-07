@@ -1,46 +1,32 @@
 
 
 // eslint-disable-next-line react/prop-types
-const EventInfo = ({ event, onClose }) => {
-    if (!event) return null; // Không hiển thị nếu không có sự kiện
+import moment from "moment";
+import Modal from "./InputCalendar.jsx";
+
+// eslint-disable-next-line react/prop-types
+const EventInfo = ({ events, isOpen, onClose }) => {
 
     return (
-        <div className="flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                <h2 className="text-lg font-bold mb-4">Thông tin sự kiện</h2>
-                {Array.isArray(event) ? (
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <h2 className="text-2xl font-bold">Sự kiện trong ngày</h2>
+            <ul className="mt-4">
+                {/* eslint-disable-next-line react/prop-types */}
+                {events.length > 0 ? (
                     // eslint-disable-next-line react/prop-types
-                    event.map((evt, index) => (
-                        <div key={index}>
-                            <p><strong>Tiêu đề:</strong> {evt.title}</p>
-                            <p><strong>Ngày:</strong> {evt.start.toLocaleDateString()}</p>
-                            <p><strong>Thời gian bắt đầu:</strong> {evt.start.toLocaleTimeString()}</p>
-                            <p><strong>Thời gian kết thúc:</strong> {evt.end.toLocaleTimeString()}</p>
-                            <hr className="my-2" />
-                        </div>
+                    events.map((event) => (
+                        <li key={event.id} className="mb-2">
+                            <strong>{event.title}</strong>: {moment(event.start).format('HH:mm')} - {moment(event.end).format('HH:mm')}
+                        </li>
                     ))
                 ) : (
-                    <div>
-                        {/* eslint-disable-next-line react/prop-types */}
-                        <p><strong>Tiêu đề:</strong> {event.title}</p>
-                        {/* eslint-disable-next-line react/prop-types */}
-                        <p><strong>Ngày:</strong> {event.start.toLocaleDateString()}</p>
-                        {/* eslint-disable-next-line react/prop-types */}
-                        <p><strong>Thời gian bắt đầu:</strong> {event.start.toLocaleTimeString()}</p>
-                        {/* eslint-disable-next-line react/prop-types */}
-                        <p><strong>Thời gian kết thúc:</strong> {event.end.toLocaleTimeString()}</p>
-                    </div>
+                    <p>Không có sự kiện nào trong ngày này.</p>
                 )}
-                <div className="flex justify-end mt-4">
-                    <button
-                        className="bg-gray-500 text-white px-4 py-2 rounded"
-                        onClick={onClose}
-                    >
-                        Đóng
-                    </button>
-                </div>
-            </div>
-        </div>
+            </ul>
+            <button onClick={onClose} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+                Đóng
+            </button>
+        </Modal>
     );
 };
 

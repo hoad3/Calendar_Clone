@@ -15,6 +15,7 @@ import TimeDisplay from "../Component/TimeDisplay.jsx";
 import AOS from'aos'
 import {BsFillMoonStarsFill} from "react-icons/bs";
 import {IoSunny} from "react-icons/io5";
+import EventInfo from "../Component/EventInfo.jsx";
 // eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line react/prop-types
 // Localizer cho phép lịch đồng bộ với định dạng ngày/giờ
@@ -31,8 +32,9 @@ function MyCalendar() {
     // const [ setHasEvent] = useState(false); // Thêm trạng thái để theo dõi sự kiện
     const [eventDays, setEventDays] = useState([]); // Mảng lưu trữ các ngày có sự kiện
     const [ setSelectedEvent] = useState(null); // Trạng thái để lưu sự kiện đã chọn
-    const [selectedDate] = useState(new Date()); // Ngày đã
+    const [selectedDateEvents, setSelectedDateEvents] = useState([]);
     const [isToggled, setIsToggled] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const myFunction = () => {
         const body = document.body;
         body.classList.toggle('dark-mode');
@@ -41,9 +43,11 @@ function MyCalendar() {
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
+        console.log('list event', events)
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
         }
+
     }, []);
     // Khởi động AOS
     // eslint-disable-next-line no-undef
@@ -60,6 +64,7 @@ function MyCalendar() {
         );
 
         if (eventsOnSelectedDate.length > 0) {
+
             // Nếu có sự kiện trong ngày đã chọn
             if (view === 'month') {
                 setSelectedEvent(eventsOnSelectedDate); // Lưu mảng sự kiện đã chọn
@@ -110,6 +115,7 @@ function MyCalendar() {
             // Lưu ngày có sự kiện vào mảng
             const eventDay = moment(newEvent.start).format('YYYY-MM-DD');
             setEventDays(prev => [...prev, eventDay]); // Thêm ngày mới vào mảng
+            console.log("Modal closed",newEvent);
             enqueueSnackbar('Tạo lịch thành công', { variant: 'success' });
             setOpen(false); // Đóng modal
             console.log("Modal closed"); // Debug log
@@ -119,15 +125,22 @@ function MyCalendar() {
 
     };
     const handleSelectDay = (slotInfo) => {
+        const selectedDate = slotInfo.start;
+        console.log('ssasdasdasd')
+        // Lọc sự kiện trong ngày đã chọn
+        const eventsOnSelectedDate = events.filter(event =>
+            moment(selectedDate).isSame(moment(event.start), 'day')
+        );
 
-        setView('day');
-        selectedDate((slotInfo.start))
+        // Hiển thị các sự kiện trên form/modal
+        setSelectedDateEvents(eventsOnSelectedDate);
+        setIsModalOpen(true); // Mở modal
     };
     return (
         <div className='flex flex-col justify-center items-center bg-gray-200 min-h-screen overflow-hidden relative dark-mode-1'>
             <div className='h-24 w-full flex flex-col justify-center items-center border-b-2 border-gray-400 z-50 fixed top-0 left-0 bg-gray-200 dark-mode-1'>
                 <div className='flex flex-row w-full justify-between px-5 sm:justify-center'>
-                    <h2 className='z-40 text-6xl font-bold w-full flex justify-end items-center ml-48'>Welcome</h2>
+                    <h2 className='z-40 text-6xl font-bold w-full flex justify-end items-center ml-56 [text-shadow:_0_2px_4px_rgb(99_102_241_/_0.8)] text-indigo-600 md:text-6xl leading-snug font-manrope '>Welcome</h2>
                     <div className="flex items-center justify-end w-full">
                         <label htmlFor="toggle" className="flex items-center cursor-pointer">
                             <div className="relative">
@@ -185,6 +198,7 @@ function MyCalendar() {
                             }}
                         />
                     </div>
+
                 </div>
 
                 <div className='reponsive-week'>
@@ -212,6 +226,7 @@ function MyCalendar() {
                                 toolbar: WeekCustomToolbar,
                             }}
                         />
+
                     </div>
                     <div className='w-full mt-4 bg-gray-100 dark-mode-6'>
                         <Calendar
@@ -237,7 +252,24 @@ function MyCalendar() {
                                 toolbar: DayCustomToolbar,
                             }}
                         />
+
                     </div>
+                    <h1>Event List</h1>
+                    <ul>
+                        {/* Duyệt qua các sự kiện và hiển thị */}
+                        {events && events.length > 0 ? (
+                            events.map((event) => (
+                                <li key={event.id}>
+                                    <h2>{event.title}</h2>
+                                    <p>Date: {event.date}</p>
+                                    <p>{event.description}</p>
+                                </li>
+                            ))
+                        ) : (
+                            <p>No events available</p>
+                        )}
+                    </ul>
+                    {/*<MonthView/>*/}
                 </div>
             </div>
 
